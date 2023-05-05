@@ -65,7 +65,7 @@ class MyHomePageState extends State<MyHomePage> {
               foreground: Paint()
                 ..strokeWidth = 12
                 ..shader = ui.Gradient.linear(
-                    const Offset(50, 20), const Offset(200, 20), <Color>[
+                    const Offset(50, 20), const Offset(180, 20), <Color>[
                   ui.Color.fromARGB(255, 255, 255, 255),
                   ui.Color.fromARGB(255, 66, 80, 82),
                 ])),
