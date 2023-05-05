@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'dart:math';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 5, 205, 240)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         ),
         home: MyHomePage(),
       ),
@@ -47,31 +47,34 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => MyHomePageState();
+}
+
+class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
+      appBar: AppBar(
+        title: Text(
+          "AI WORLD",
+          style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              foreground: Paint()
+                ..strokeWidth = 12
+                ..shader = ui.Gradient.linear(
+                    const Offset(50, 20), const Offset(200, 20), <Color>[
+                  ui.Color.fromARGB(255, 255, 255, 255),
+                  ui.Color.fromARGB(255, 66, 80, 82),
+                ])),
+        ),
+        backgroundColor: Color.fromARGB(255, 1, 123, 160),
+      ),
+      body: Center(
+          child: Column(
         children: [
-          SafeArea(
-            child: NavigationRail(
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
-                ),
-              ],
-              selectedIndex: 0,
-              onDestinationSelected: (value) {
-                print('selected: $value');
-              },
-            ),
-          ),
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,
@@ -79,7 +82,7 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 }
@@ -134,7 +137,7 @@ class TagLine extends StatelessWidget {
     super.key,
   });
 
-  String _generateRandomTagline() {
+  String generateRandomTagline() {
     final List<String> tagLines = [
       'AI World Is Awesome!',
       'Experience the power of AI World',
@@ -143,7 +146,8 @@ class TagLine extends StatelessWidget {
       "The future is AI World, and it's awesome"
     ];
     final random = Random();
-    final randomNumber = random.nextInt(5);
+    int randomNumber = random.nextInt(5);
+
     return tagLines[randomNumber];
   }
 
@@ -152,7 +156,7 @@ class TagLine extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Text(
-        _generateRandomTagline(),
+        generateRandomTagline(),
         style: TextStyle(fontSize: 22.0),
       ),
     );
